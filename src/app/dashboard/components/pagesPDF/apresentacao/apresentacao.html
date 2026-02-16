@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apresentação Mabu Thermas</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div
+    style="font-family: Sans-serif; max-width: 768px; margin:0; background-color: #ffffff; padding: 0; justify-content: start; align-items: start">
+    <style>
+      @media screen and (max-width: 768px) {
+        .header-image {
+          height: 60px !important;
+          min-height: 60px !important;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .header-image {
+          height: 40px !important;
+          min-height: 40px !important;
+        }
+      }
+    </style>
+    <div style="padding: 0; margin: 0; width: 100%;">
+      <div class="header-image"
+        style="width: 100%; height: 80px; justify-content: start; align-items: start; min-height: 80px; max-height: 110px; background-image: url('https://firebasestorage.googleapis.com/v0/b/licitacao-c8322.appspot.com/o/ImagensCotacao%2FHeader.png?alt=media&token=74baabf4-f09e-45e7-acc3-7d056dab1fd5'); background-size: contain; background-position: center; background-repeat: no-repeat; margin: 0;">
+      </div>
+      <div style="width: 100%; padding: 0;">
+        <div style="position: relative; text-align: center; padding: 1rem 0;">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/licitacao-c8322.appspot.com/o/ImagensCotacao%2Frecep%C3%A7%C3%A3o.jpg?alt=media&token=cffd7368-808d-42a9-b981-c6b1f0f875ac"
+            alt="Recepção Mabu" style="width: 100%; height: auto; border-radius: 0.75rem; margin: 0;" />
+          <!-- Botão na parte superior da imagem -->
+          <div
+            style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center;">
+            <a href="SUA_URL_AQUI"
+              style="background-color: #01245e; color: #fff; border-radius: 1.5rem; padding: 0.5rem 0.6rem; border: none; display: flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none; width: 11rem; text-align: center;">
+              RESERVAR AGORA ➡️
+            </a>
+          </div>
+        </div>
+        <div style="padding: 0;">
+          <div style="display: flex; gap: 0.5rem;">
+            <h2 style="font-size: 1.125rem; color: #01245e; font-weight: 600;">Olá, </h2>
+            <h2 style="font-size: 1.125rem; font-weight: 600;">${searchReserva?.cotacao?.nomeUsuario || "Visitante"
+              }</h2>
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <h2 style="font-size: 1.125rem; color: #01245e; font-weight: 600; margin-bottom: 0.5rem;">
+              Recebemos o seu pedido de reserva para as seguintes observações:
+            </h2>
+            <br>
+            <div style="font-size: 1.125rem; font-weight: 600;">
+              <p style="margin: 0.5rem 0;">Quartos: <span
+                  style="color: #01245e; margin-left: 0.5rem;">${searchReserva?.cotacao?.quantidadeDeQuartos
+                  }</span></p>
+              <p style="margin: 0.5rem 0;">Hóspedes: <span
+                  style="color: #01245e; margin-left: 0.5rem;">${searchReserva?.cotacao?.adultos +
+                  searchReserva?.cotacao?.criancas
+                  }</span></p>
+              <p style="margin: 0.5rem 0;">Pensão: <span
+                  style="color: #01245e; margin-left: 0.5rem;">${searchReserva.opcao === "precoCafeDaManha"
+                  ? "Café da Manhã"
+                  : searchReserva.opcao === "precoCafeEJantar"
+                  ? "Café e Jantar"
+                  : "Pensão Completa"
+                  }</span></p>
+              <p style="margin: 0.5rem 0;">Adicional: <span
+                  style="color: #01245e; margin-left: 0.5rem;">${searchReserva?.adicional || "Nenhum"
+                  }</span></p>
+              <p style="margin: 0.5rem 0;">Datas: <span style="color: #01245e; margin-left: 0.5rem;">
+                  ${moment(searchReserva?.cotacao?.checkIn).format(
+                  "DD/MM/YYYY"
+                  )} - ${moment(searchReserva?.cotacao?.checkOut).format(
+                  "DD/MM/YYYY"
+                  )}
+                </span></p>
+              <br>
+              <p style="margin: 0.5rem 0;">Valor Hospedagem: <span style="color: #01245e; margin-left: 0.5rem;">
+                  R$ ${(valorBase * 0.7).toFixed(
+                  2
+                  )} (sem taxas a serem cobradas)
+                </span></p>
+              <p style="margin: 0.5rem 0;">Adicional: <span style="color: #01245e; margin-left: 0.5rem;">
+                  R$ ${searchReserva.valorAdicional?.toFixed(2) || "00,00"
+                  }
+                </span></p>
+              <br>
+            </div>
+          </div>
+
+          <div>
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/licitacao-c8322.appspot.com/o/ImagensCotacao%2Fdivisor-removebg-preview.png?alt=media&token=3345896f-997a-4aa5-9bb7-63344dfad608"
+              alt="Separador" style="width: 300px; height: 20px; display: block; margin: 0 auto;" />
+          </div>
+
+          <div style="font-size: 0.875rem; font-weight: 400; margin: 0 auto;">
+            <h2 style="font-size: 1.125rem; color: #01245e; font-weight: 600; margin-bottom: 1rem;">INFORMAÇÕES DE
+              PAGAMENTO</h2>
+            <p style="margin: 0.5rem 0;">Para a sua segurança, nunca realize o PIX caso não apareça o nome da Empresa
+              acima.</p>
+            <p style="margin: 0.5rem 0;">Todos os pagamentos são mediantes ao nosso CNPJ com o nome Mabu Convention
+              Thermas Resort.</p>
+            <p style="margin: 0.5rem 0;">Após o pagamento, encaminhe o comprovante de pagamento para o especialista
+              responsável pela sua reserva.</p>
+            <p style="margin: 0.5rem 0;">Desde já, agradecemos pela sua preferência !!!</p>
+
+            <div
+              style="display: flex; gap: 0.5rem; margin-top: 2rem; flex-wrap: wrap; justify-content: center; max-width: 550px;">
+              <div
+                style="width: 150px; height: 120px; text-align: center; padding: 1rem; border: 2px solid #01245e; border-radius: 0.5rem;">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/licitacao-c8322.appspot.com/o/ImagensCotacao%2FBank_novo-removebg-preview.png?alt=media&token=aeabc584-60ab-44fe-998d-4c86a7e82a8d"
+                  style="width: 40px; height: 40px; object-fit: contain; margin-bottom: 10px;"
+                  alt="Pagamento via Banco" />
+                <p style="font-size: 0.5rem; color: #01245e;">PAGAMENTO RECEBIDO DIRETAMENTE PARA INSTITUIÇÃO EM NOME DO
+                  NOSSO HOTEL</p>
+              </div>
+
+              <div
+                style="width: 150px; height: 120px; text-align: center; padding: 1rem; border: 2px solid #01245e; border-radius: 0.5rem;">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/licitacao-c8322.appspot.com/o/ImagensCotacao%2Fpix-removebg-preview.png?alt=media&token=cd177270-68fd-4b93-9ed9-0ca79404c441"
+                  style="width: 60px; height: 60px; object-fit: contain; margin-bottom: 10px;"
+                  alt="Pagamento via PIX" />
+                <p style="font-size: 0.5rem; color: #01245e;">PAGAMENTOS VIA PIX COM 10% DESCONTO</p>
+              </div>
+
+              <div
+                style="width: 150px; height: 120px; text-align: center; padding: 1rem; border: 2px solid #01245e; border-radius: 0.5rem;">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/licitacao-c8322.appspot.com/o/ImagensCotacao%2Fcart%C3%A3o_novo-removebg-preview.png?alt=media&token=906f8b55-5b73-4519-91fa-30976b61c64a"
+                  style="width: 55px; height: 55px; object-fit: contain; margin-bottom: 10px;"
+                  alt="Pagamento via Cartão" />
+                <p style="font-size: 0.5rem; color: #01245e;">PAGUE COM CARTÃO EM ATÉ 12X C/JUROS</p>
+              </div>
+
+              <div
+                style="width: 150px; height: 120px; text-align: center; padding: 1rem; border: 2px solid #01245e; border-radius: 0.5rem;">
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/licitacao-c8322.appspot.com/o/ImagensCotacao%2Freserva_novo-removebg-preview.png?alt=media&token=847697f8-d4e8-4448-9f3b-b9c6ea049105"
+                  style="width: 40px; height: 40px; object-fit: contain; margin-bottom: 10px;"
+                  alt="Confirmação de Reserva" />
+                <p style="font-size: 0.5rem; color: #01245e;">RECEBA A SUA RESERVA APÓS A CONFIRMAÇÃO DE PAGAMENTO</p>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 16px; display: flex; justify-content: center; align-items: center; width: 100%;">
+            <a href="SUA_URL_AQUI"
+              style="background-color: #01245e; color: #fff; border-radius: 1.5rem; padding: 0.5rem 0.6rem; border: none; display: flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none; width: 11rem; text-align: center;">
+              RESERVAR AGORA ➡️
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

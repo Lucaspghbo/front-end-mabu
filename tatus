@@ -1,0 +1,140 @@
+[1mdiff --git a/src/app/dashboard/components/navbar.tsx b/src/app/dashboard/components/navbar.tsx[m
+[1mindex 38c0232..501c6c8 100644[m
+[1m--- a/src/app/dashboard/components/navbar.tsx[m
+[1m+++ b/src/app/dashboard/components/navbar.tsx[m
+[36m@@ -16,6 +16,7 @@[m [mimport { useRouter } from "next/navigation";[m
+ import { useEffect, useState } from "react";[m
+ import { UserProps } from "@/types/userProps";[m
+ import { api } from "@/services/axios"; // axios configurado[m
+[32m+[m[32mimport { SelectHotel } from "./select_hotel";[m
+ [m
+ interface NavbarProps {[m
+   home: boolean;[m
+[36m@@ -83,6 +84,10 @@[m [mexport function Navbar({[m
+           )}[m
+         </div>[m
+ [m
+[32m+[m[32m        <div className={`${showMenu ? "block" : "hidden"}`}>[m
+[32m+[m[32m          <SelectHotel />[m
+[32m+[m[32m        </div>[m
+[32m+[m
+         <nav[m
+           className={`${showMenu ? "flex" : "hidden"[m
+             } md:flex flex-col justify-between mt-6`}[m
+[1mdiff --git a/src/app/dashboard/components/update_user.tsx b/src/app/dashboard/components/update_user.tsx[m
+[1mindex fec5ad5..36f8cb4 100644[m
+[1m--- a/src/app/dashboard/components/update_user.tsx[m
+[1m+++ b/src/app/dashboard/components/update_user.tsx[m
+[36m@@ -15,6 +15,7 @@[m [mconst formSchema = z.object({[m
+     password: z.string().nullable().optional(),[m
+     isAdmin: z.boolean(),[m
+     linkWhatsApp: z.string(),[m
+[32m+[m[32m    hotel: z.enum(["MABU_THERMAS", "HOT_BEACH_RESORT", "HOT_BEACH_SUITE", "TODOS"]).optional(),[m
+ })[m
+ export function UpdateUser({[m
+     users,[m
+[36m@@ -51,7 +52,8 @@[m [mexport function UpdateUser({[m
+         form.setValue("email", users?.email || "");[m
+         form.setValue("isAdmin", users?.isAdmin || false);[m
+         form.setValue("linkWhatsApp", users?.linkWhatsApp || "");[m
+[31m-    }, [form, users?.email, users?.isAdmin, users?.linkWhatsApp, users?.nome]);[m
+[32m+[m[32m        form.setValue("hotel", (users?.hotel as "MABU_THERMAS" | "HOT_BEACH_RESORT" | "HOT_BEACH_SUITE" | "TODOS") || "MABU_THERMAS");[m
+[32m+[m[32m    }, [form, users?.email, users?.isAdmin, users?.linkWhatsApp, users?.nome, users?.hotel]);[m
+ [m
+     return ([m
+         <div className="absolute top-0 left-0 w-full h-screen p-2 overflow-hidden bg-black/50 flex items-center justify-center z-50">[m
+[36m@@ -76,6 +78,18 @@[m [mexport function UpdateUser({[m
+                                 placeholder="Digite o WhatsApp"[m
+                                 name="linkWhatsApp"[m
+                             />[m
+[32m+[m[32m                            <div className="flex flex-col gap-2">[m
+[32m+[m[32m                                <label className="text-slate-200 text-sm">Hotel</label>[m
+[32m+[m[32m                                <select[m
+[32m+[m[32m                                    {...form.register("hotel")}[m
+[32m+[m[32m                                    className="h-10 px-3 rounded-md border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"[m
+[32m+[m[32m                                >[m
+[32m+[m[32m                                    <option value="MABU_THERMAS">Mabu Thermas</option>[m
+[32m+[m[32m                                    <option value="HOT_BEACH_RESORT">Hot Beach Resort</option>[m
+[32m+[m[32m                                    <option value="HOT_BEACH_SUITE">Hot Beach Suíte</option>[m
+[32m+[m[32m                                    <option value="TODOS">Todos</option>[m
+[32m+[m[32m                                </select>[m
+[32m+[m[32m                            </div>[m
+                             <div className="flex items-center gap-2">[m
+                                 <input[m
+                                     type="checkbox"[m
+[1mdiff --git a/src/app/dashboard/users/page.tsx b/src/app/dashboard/users/page.tsx[m
+[1mindex 24f9b33..46e51bf 100644[m
+[1m--- a/src/app/dashboard/users/page.tsx[m
+[1m+++ b/src/app/dashboard/users/page.tsx[m
+[36m@@ -350,7 +350,8 @@[m [mconst schemaUser = z.object({[m
+   isAdmin: z.boolean(),[m
+   linkWhatsApp: z[m
+     .string()[m
+[31m-    .min(11, { message: "WhatsApp must be at least 10 characters" })[m
+[32m+[m[32m    .min(11, { message: "WhatsApp must be at least 10 characters" }),[m
+[32m+[m[32m  hotel: z.enum(["MABU_THERMAS", "HOT_BEACH_RESORT", "HOT_BEACH_SUITE", "TODOS"])[m
+ });[m
+ function CreateNewUser({[m
+   handleShowCreateUser,[m
+[36m@@ -365,7 +366,8 @@[m [mfunction CreateNewUser({[m
+       nome: "",[m
+       email: "",[m
+       password: "",[m
+[31m-      isAdmin: false[m
+[32m+[m[32m      isAdmin: false,[m
+[32m+[m[32m      hotel: "MABU_THERMAS"[m
+     }[m
+   });[m
+ [m
+[36m@@ -428,6 +430,18 @@[m [mfunction CreateNewUser({[m
+               label="Link do WhatsApp"[m
+               placeholder="Digite o link do WhatsApp"[m
+             />[m
+[32m+[m[32m            <div className="flex flex-col gap-2">[m
+[32m+[m[32m              <label className="text-slate-200 text-sm">Hotel</label>[m
+[32m+[m[32m              <select[m
+[32m+[m[32m                {...form.register("hotel")}[m
+[32m+[m[32m                className="h-10 px-3 rounded-md border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"[m
+[32m+[m[32m              >[m
+[32m+[m[32m                <option value="MABU_THERMAS">Mabu Thermas</option>[m
+[32m+[m[32m                <option value="HOT_BEACH_RESORT">Hot Beach Resort</option>[m
+[32m+[m[32m                <option value="HOT_BEACH_SUITE">Hot Beach Suíte</option>[m
+[32m+[m[32m                <option value="TODOS">Todos</option>[m
+[32m+[m[32m              </select>[m
+[32m+[m[32m            </div>[m
+             <CheckBoxForm control={form.control} label="Admin?" />[m
+ [m
+             <ButtonComp[m
+[1mdiff --git a/src/app/dashboardhotbeach/components/update_user.tsx b/src/app/dashboardhotbeach/components/update_user.tsx[m
+[1mindex fec5ad5..5982101 100644[m
+[1m--- a/src/app/dashboardhotbeach/components/update_user.tsx[m
+[1m+++ b/src/app/dashboardhotbeach/components/update_user.tsx[m
+[36m@@ -15,6 +15,7 @@[m [mconst formSchema = z.object({[m
+     password: z.string().nullable().optional(),[m
+     isAdmin: z.boolean(),[m
+     linkWhatsApp: z.string(),[m
+[32m+[m[32m    hotel: z.enum(["MABU_THERMAS", "HOT_BEACH_RESORT", "HOT_BEACH_SUITE", "TODOS"]).optional(),[m
+ })[m
+ export function UpdateUser({[m
+     users,[m
+[36m@@ -51,7 +52,8 @@[m [mexport function UpdateUser({[m
+         form.setValue("email", users?.email || "");[m
+         form.setValue("isAdmin", users?.isAdmin || false);[m
+         form.setValue("linkWhatsApp", users?.linkWhatsApp || "");[m
+[31m-    }, [form, users?.email, users?.isAdmin, users?.linkWhatsApp, users?.nome]);[m
+[32m+[m[32m        form.setValue("hotel", (users?.hotel as "MABU_THERMAS" | "HOT_BEACH_RESORT" | "HOT_BEACH_SUITE" | "TODOS") || "HOT_BEACH_RESORT");[m
+[32m+[m[32m    }, [form, users?.email, users?.isAdmin, users?.linkWhatsApp, users?.nome, users?.hotel]);[m
+ [m
+     return ([m
+         <div className="absolute top-0 left-0 w-full h-screen p-2 overflow-hidden bg-black/50 flex items-center justify-center z-50">[m
+[36m@@ -76,6 +78,18 @@[m [mexport function UpdateUser({[m
+                                 placeholder="Digite o WhatsApp"[m
+                                 name="linkWhatsApp"[m
+                             />[m
+[32m+[m[32m                            <div className="flex flex-col gap-2">[m
+[32m+[m[32m                                <label className="text-slate-200 text-sm">Hotel</label>[m
+[32m+[m[32m                                <select[m
+[32m+[m[32m                                    {...form.register("hotel")}[m
+[32m+[m[32m                                    className="h-10 px-3 rounded-md border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"[m
+[32m+[m[32m                                >[m
+[32m+[m[32m                                    <option

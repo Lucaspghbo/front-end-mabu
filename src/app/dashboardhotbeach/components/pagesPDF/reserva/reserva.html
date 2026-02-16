@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mabu Reservas</title>
+    <style>
+        /* Geral */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sans-serif';
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            gap: 2rem;
+            padding: 2.5rem;
+            background-color: #ecebeb;
+        }
+
+        .logo {
+            width: 100%;
+            /* Ajuste a largura para 100% do contêiner */
+            max-width: 720px;
+            /* Define um limite máximo de largura */
+            height: auto;
+            /* Mantém a proporção da altura */
+            object-fit: contain;
+            /* Garante que a imagem se ajuste ao contêiner sem distorcer */
+        }
+
+        .main {
+            width: 100%;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 0.5rem;
+            padding: 0 0.5rem;
+        }
+
+        .image {
+            width: 100%;
+            /* Ajusta a largura para 100% do contêiner */
+            height: auto;
+            /* Mantém a altura proporcional */
+            border-radius: 0.75rem;
+            object-fit: cover;
+        }
+
+        .content {
+            width: 100%;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .greeting {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .greeting-title {
+            font-size: 1.125rem;
+            color: #01245e;
+            font-weight: 600;
+        }
+
+        .greeting-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .reservation-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .details-title {
+            font-size: 1.125rem;
+            color: #01245e;
+            font-weight: 600;
+        }
+
+        .details {
+            font-size: 1.125rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .highlight {
+            color: #01245e;
+        }
+
+        .container-divisor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .divider {
+            width: 50%;
+            height: 40px;
+            object-fit: fill;
+        }
+
+        .payment-info {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .payment-title {
+            font-size: 1.125rem;
+            color: #01245e;
+            font-weight: 600;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .payment-method {
+            width: 25%;
+            text-align: center;
+            padding: 0.25rem;
+            padding-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            border: 2px solid #01245e;
+        }
+
+        .payment-icon {
+            width: 100%;
+            /* Ajusta a largura para 100% do contêiner */
+            max-width: 50px;
+            /* Limite máximo da largura */
+            height: auto;
+            /* Mantém a proporção */
+            object-fit: contain;
+            border-radius: 0.75rem;
+        }
+
+        .payment-description {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #01245e;
+        }
+
+        /* Media query para dispositivos móveis */
+        @media (max-width: 768px) {
+            .payment-methods {
+                flex-wrap: wrap;
+            }
+            .payment-method {
+                width: 100%;
+                /* No mobile, cada item ocupa 100% de largura */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="reserva-pdf">
+        <div class="container">
+            <header class="header">
+                <img src="./logo-header-transparent.png" width="720" height="96" alt="Logo Mabu" class="logo">
+            </header>
+
+            <main class="main">
+                <div class="image-container">
+                    <img src="./recepção.jpg" width="1200" height="500" class="image" alt="Recepção Mabu">
+                </div>
+
+                <article class="content">
+                    <div class="greeting">
+                        <h2 class="greeting-title">Olá,</h2>
+                        <h2 class="greeting-name">Teste</h2>
+                    </div>
+
+                    <div class="reservation-details">
+                        <h2 class="details-title">Recebemos o seu pedido de reserva para as seguintes observações:</h2>
+
+                        <div class="details">
+                            <span>Quartos: <span class="highlight">3</span></span>
+                            <span>Hóspedes: <span class="highlight">2</span></span>
+                            <span>Pensão: <span class="highlight">R$ 2.000,00</span></span>
+                            <span>Adicional: <span class="highlight">R$ 800,00</span></span>
+                            <span>Datas: <span class="highlight">25/08/2023 - 30/08/2023</span></span>
+                            <span>Valor: <span class="highlight">R$ 2.500,00</span></span>
+                        </div>
+                    </div>
+                    <div class="container-divisor">
+                        <img src="./divisor.png" width="300" height="20" alt="Separador" class="divider">
+                    </div>
+                </article>
+
+                <div class="payment-info">
+                    <h2 class="payment-title">INFORMAÇÕES DE PAGAMENTO</h2>
+                    <p>Para a sua segurança, nunca realize o PIX caso não apareça o nome da Empresa acima.</p>
+                    <p> Todos os
+                        pagamentos são mediantes ao nosso CNPJ com o nome Mabu Convention Thermas Resort.</p>
+                    <p>Após o pagamento, encaminhe o comprovante de pagamento para o especialista responsável pela sua
+                        reserva.</p>
+                    <p>Desde já, agradecemos pela sua preferência !!!</p>
+
+                    <div class="payment-methods">
+                        <div class="payment-method">
+                            <img src="./bank.jpeg" width="500" height="500" class="payment-icon"
+                                alt="Pagamento via Banco">
+                            <p class="payment-description">PAGAMENTO RECEBIDO DIRETAMENTE PARA INSTITUIÇÃO EM NOME DO
+                                NOSSO HOTEL</p>
+                        </div>
+
+                        <div class="payment-method">
+                            <img src="./pix.png" width="500" height="500" class="payment-icon" alt="Pagamento via PIX">
+                            <p class="payment-description">PAGAMENTOS VIA PIX COM 15% DESCONTO</p>
+                        </div>
+
+                        <div class="payment-method">
+                            <img src="./carteira.jpeg" width="500" height="500" class="payment-icon"
+                                alt="Pagamento via PIX">
+                            <p class="payment-description">PAGUE COM CARTÃO EM ATÉ 12X S/JUROS</p>
+                        </div>
+
+                        <div class="payment-method">
+                            <img src="./mala.png" width="500" height="500" class="payment-icon"
+                                alt="Confirmação de Reserva">
+                            <p class="payment-description">RECEBA A SUA RESERVA APÓS A CONFIRMAÇÃO DE PAGAMENTO</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
